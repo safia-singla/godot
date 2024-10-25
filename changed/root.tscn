@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxmvaeupdbyf8"]
+
+[ext_resource type="Script" path="res://landscape.gd" id="1_p244r"]
+[ext_resource type="Script" path="res://animation.gd" id="1_sjs1r"]
+[ext_resource type="PackedScene" uid="uid://bojpgosergky2" path="res://glider.glb" id="2_dqwpq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6v7yn"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_obenw"]
+sky_material = SubResource("ProceduralSkyMaterial_6v7yn")
+
+[sub_resource type="Environment" id="Environment_hd402"]
+background_mode = 2
+sky = SubResource("Sky_obenw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_08f6v"]
+
+[node name="Root" type="Node3D"]
+script = ExtResource("1_sjs1r")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hd402")
+
+[node name="Landscape" type="Node3D" parent="."]
+script = ExtResource("1_p244r")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.999315, 0.02617, -0.02617, 0.0101603, 0.873928, 0.48595, 0.035588, 0.485351, -0.873595, 4.32677, 3.591, -2.08988)
+fov = 90.0
+
+[node name="glider2" parent="." instance=ExtResource("2_dqwpq")]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0, 0)
+
+[node name="marker" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_08f6v")
